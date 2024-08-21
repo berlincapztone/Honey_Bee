@@ -1,0 +1,543 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Honey Web</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <style>
+        .carousel-slide {
+            flex: 0 0 100%;
+            box-sizing: border-box;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .carousel-slide .content-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.5); /* Semi-transparent background for content area */
+            padding: 10px;
+            border-radius: 8px; /* Optional: to make the content area look more distinct */
+        }
+        
+        .carousel-slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: gray;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .carousel-button.active {
+            background-color: black;
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        
+        .carousel-button.prev,
+        .carousel-button.next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .carousel-button.prev {
+            left: 10px;
+        }
+        
+        .carousel-button.next {
+            right: 10px;
+        }
+        
+/*** About ***/
+.video {
+    background: 
+    linear-gradient(rgba(245, 198, 102, 0.7), rgba(245, 198, 102, 0.7)), 
+    url('/static/assets/images/s2.jpg') center center / cover no-repeat;
+
+
+}
+
+
+.btn-play {
+    position: relative;
+    display: block;
+    box-sizing: content-box;
+    width: 65px;
+    height: 75px;
+    border-radius: 100%;
+    border: none;
+    outline: none !important;
+    padding: 28px 30px 30px 38px;
+    background: #FFFFFF;
+}
+
+.btn-play:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 120px;
+    height: 120px;
+    background: #FFFFFF;
+    border-radius: 100%;
+    animation: pulse-border 1500ms ease-out infinite;
+}
+
+.btn-play:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 120px;
+    height: 120px;
+    background: #FFFFFF;
+    border-radius: 100%;
+    transition: all 200ms;
+}
+
+.btn-play span {
+    display: block;
+    position: relative;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    left: 13px;
+    border-left: 40px solid var(--primary);
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+}
+
+@keyframes pulse-border {
+    0% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(2);
+        opacity: 0;
+    }
+}
+
+.modal-video .modal-dialog {
+    position: relative;
+    max-width: 800px;
+    margin: 60px auto;
+    border-radius: 15px; /* Rounded corners for the modal */
+    overflow: hidden; /* Ensure the video stays within the rounded corners */
+}
+
+.modal-video .modal-body {
+    padding: 0;
+}
+
+.modal-video .modal-content {
+    border-radius: 15px; /* Rounded corners for the modal content */
+    overflow: hidden; /* Clip the content to the border radius */
+    background: none; /* Ensure the video fills the content */
+    border: none; /* Remove any default borders */
+}
+
+.modal-video .ratio-16x9 {
+    width: 100%;
+    padding-bottom: 59.25%; /* 16:9 aspect ratio */
+    position: relative;
+}
+
+.modal-video .ratio-16x9 iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px; /* Rounded corners for the video */
+    border: none; /* Remove any border around the iframe */
+    object-fit: cover; /* Ensures the video fits within the rectangle */
+}
+
+.modal-video .close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 10px;
+    top: 10px;
+    z-index: 999;
+    font-size: 30px;
+    font-weight: normal;
+    color: #FFFFFF;
+    background: #000000;
+    opacity: 1;
+    border-radius: 50%; /* Rounded close button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+        
+
+
+    </style>
+</head>
+
+<body>
+<!-- Pre-header Starts -->
+<div class="bg-yellow-300 py-2">
+    <div class="container mx-auto flex flex-wrap justify-between items-center text-sm text-gray-600">
+        <div class="flex flex-wrap space-x-4 mb-2 md:mb-0">
+            <a href="#" class="flex items-center hover:text-gray-800"><i class="fa fa-envelope mr-2"></i> honey@gmail.com</a>
+            <a href="#" class="flex items-center hover:text-gray-800"><i class="fa fa-phone mr-2"></i> 1234567890</a>
+        </div>
+        <div class="flex flex-wrap space-x-4">
+            <a href="#" class="hover:text-gray-800"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="hover:text-gray-800"><i class="fa fa-behance"></i></a>
+            <a href="#" class="hover:text-gray-800"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="hover:text-gray-800"><i class="fa fa-dribbble"></i></a>
+        </div>
+    </div>
+</div>
+<!-- Pre-header End -->
+
+
+<!-- Header Area Start -->
+<header class="bg-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto flex flex-wrap items-center justify-between h-20 px-4">
+        <a href="index.html" class="flex-shrink-0">
+            <img src="{% static 'assets/images/true.jpg' %}" alt="Honey Logo" class="h-16">
+        </a>
+        <button class="navbar-toggler md:hidden flex items-center px-3 py-2 border rounded border-gray-600 text-gray-600 hover:text-gray-800 focus:outline-none">
+            <i class="fa fa-bars"></i>
+        </button>
+        <ul class="hidden md:flex flex-1 justify-center space-x-6 text-yellow-800 font-semibold uppercase items-center">
+            <li class="scroll-to-section"><a href="#top" class="hover:text-yellow-700">Home</a></li>
+            <li class="scroll-to-section"><a href="#services" class="hover:text-yellow-700">Honey</a></li>
+            <li class="scroll-to-section"><a href="#about" class="hover:text-yellow-700">Honey Product</a></li>
+            <li class="scroll-to-section"><a href="#portfolio" class="hover:text-yellow-700">Coconut Product</a></li>
+            <li class="scroll-to-section"><a href="#video" class="hover:text-yellow-700">Oil</a></li>
+            <li class="scroll-to-section"><a href="#contact" class="hover:text-yellow-700">Spices</a></li>
+        </ul>
+        <div class="hidden md:flex space-x-4 text-yellow-800 items-center">
+            <a href="#" class="hover:text-yellow-700"><i class="fa fa-search"></i></a>
+            <a href="#" class="hover:text-yellow-700"><i class="fa fa-shopping-cart"></i></a>
+            <a href="#" class="hover:text-yellow-700"><i class="fa fa-shopping-bag"></i></a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+<div class="md:hidden hidden" id="mobile-menu">
+    <ul class="flex flex-col space-y-2 bg-white text-yellow-800 font-semibold uppercase">
+        <li class="scroll-to-section"><a href="#top" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
+        <li class="scroll-to-section"><a href="#services" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
+        <li class="scroll-to-section"><a href="#about" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
+        <li class="scroll-to-section"><a href="#portfolio" class="block px-4 py-2 hover:bg-yellow-100">Coconut Product</a></li>
+        <li class="scroll-to-section"><a href="#video" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
+        <li class="scroll-to-section"><a href="#contact" class="block px-4 py-2 hover:bg-yellow-100">Spices</a></li>
+    </ul>
+</div>
+
+</header>
+<!-- Header Area End -->
+
+<!-- Carousel Section -->
+<section class="relative overflow-hidden">
+    <div id="carousel" class="carousel">
+        <div class="carousel-inner flex transition-transform duration-500">
+            <!-- Slide 1 -->
+            <div class="carousel-slide flex-shrink-0 w-full" style="background-image: url('{% static 'assets/images/two.jpg' %}');">
+                <div class="content-wrapper flex flex-col md:flex-row items-center justify-between p-4 md:p-10 bg-yellow-100 bg-cover bg-center relative">
+                    <div class="text-left mb-4 md:mb-0 md:w-1/2">
+                        <h2 class="text-2xl md:text-3xl text-yellow-600 uppercase mb-2">Pure Honey</h2>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Experience the <span class="text-yellow-700">Sweetness</span> <br> of Nature's <span class="text-yellow-500">Best</span></h1>
+                        <p class="text-gray-700 mb-4">Discover our 100% pure and organic honey, straight from the hive to your table.</p>
+                        <div class="flex items-center space-x-4">
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded-full">Shop Now</button>
+                        </div>
+                    </div>
+                    <img src="{% static 'assets/images/mm.png' %}" alt="Honey Image" class="object-cover rounded-lg w-full md:w-1/2"/>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide flex-shrink-0 w-full" style="background-image: url('{% static 'assets/images/two.jpg' %}');">
+                <div class="content-wrapper flex flex-col md:flex-row items-center justify-between p-4 md:p-10 bg-yellow-200 bg-cover bg-center relative">
+                    <div class="text-left mb-4 md:mb-0 md:w-1/2">
+                        <h2 class="text-2xl md:text-3xl text-yellow-600 uppercase mb-2">Organic Honey</h2>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Nourish Your Body <br> with <span class="text-yellow-500">Pure Goodness</span></h1>
+                        <p class="text-gray-700 mb-4">Enjoy the health benefits of our premium organic honey, naturally sourced.</p>
+                        <div class="flex items-center space-x-4">
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded-full">Learn More</button>
+                        </div>
+                    </div>
+                    <img src="{% static 'assets/images/mm.png' %}" alt="Honey Image" class="object-cover rounded-lg w-full md:w-1/2"/>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide flex-shrink-0 w-full" style="background-image: url('{% static 'assets/images/two.jpg' %}');">
+                <div class="content-wrapper flex flex-col md:flex-row items-center justify-between p-4 md:p-10 bg-yellow-300 bg-cover bg-center relative">
+                    <div class="text-left mb-4 md:mb-0 md:w-1/2">
+                        <h2 class="text-2xl md:text-3xl text-yellow-600 uppercase mb-2">Bee's Best</h2>
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">From Hive to Table <br> with <span class="text-yellow-500">Love</span></h1>
+                        <p class="text-gray-700 mb-4">Savor the rich flavors of honey produced with care by our hardworking bees.</p>
+                        <div class="flex items-center space-x-4">
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded-full">Explore Products</button>
+                        </div>
+                    </div>
+                    <img src="{% static 'assets/images/mm.png' %}" alt="Honey Image" class="object-cover rounded-lg w-full md:w-1/2"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-button prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
+        <div class="carousel-dots">
+            <button class="carousel-button active"></button>
+            <button class="carousel-button"></button>
+            <button class="carousel-button"></button>
+        </div>
+    </div>
+</section>
+
+
+<div class="container mx-auto p-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <!-- Left Section: Text Content -->
+        <div class="w-full md:w-1/3">
+            <h2 class="text-orange-600 text-xl font-bold">Information</h2>
+            <h1 class="text-4xl font-extrabold text-brown-900 mt-2">About honey</h1>
+            <div class="mt-2 mb-4">
+                <span class="block w-16 h-1 bg-yellow-400"></span>
+            </div>
+            <p class="text-gray-600 mb-6">
+                Suspendisse mattis enim velit. Maecenas egestas mi auctor tortor imperdiet, ut bibendum arcu faucibus. Pellentesque malesuada erat eget felis consectetur laoreet. Nullam eu nunc aliquet, maximus magna nec, placerat tellus.
+            </p>
+            <button class="bg-yellow-500 text-white py-2 px-4 rounded-full hover:bg-yellow-600 transition duration-300">Read more</button>
+        </div>
+
+        <!-- Center Section: Image Centered Vertically -->
+        <div class="w-full md:w-1/3 flex justify-center items-center">
+            <div class="relative">
+                <img src="{% static 'assets/images/mm.png' %}" alt="Honey and honeycomb" class="w-full max-w-sm h-auto">
+                <div class="absolute top-0 right-0 bg-orange-600 text-white font-bold p-2 rounded-full text-center transform translate-x-1/4 -translate-y-1/4">
+                    100% <br> organic product
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Tick Options -->
+        <div class="w-full md:w-1/3">
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <span class="text-2xl font-bold mr-4" style="color: #facc15;">✔</span> <!-- Yellow color -->
+                    <span class="text-gray-700">regulates <span class="font-bold">metabolic processes</span></span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl font-bold mr-4" style="color: #f59e0b;">✔</span> <!-- Orange color -->
+                    <span class="text-gray-700">increases <span class="font-bold">immunity</span></span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl font-bold mr-4" style="color: #facc15;">✔</span> <!-- Yellow color -->
+                    <span class="text-gray-700"><span class="font-bold">honey improves</span> blood composition</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl font-bold mr-4" style="color: #facc15;">✔</span> <!-- Yellow color -->
+                    <span class="text-gray-700">helps to cope with <span class="font-bold">insomnia</span></span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl font-bold mr-4" style="color: #facc15;">✔</span> <!-- Yellow color -->
+                    <span class="text-gray-700">gives energy to the body, restores <span class="font-bold">strength</span></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Video Start -->
+<div class="container-fluid video my-5">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="py-5">
+                    <!-- The Honey Farm heading with honey color -->
+                    <h1 class="display-6 mb-4" style="color: #d89c03;">THE HONEY FARM</h1>
+                    
+                    <h5 class="fw-normal lh-base fst- text-white mb-5">Our honey from the Western Ghats is packed with the nutrients of local blooms, untouched by harsh processing. Every jar offers a taste of nature, crafted by our hardworking bees.</h5>
+                    
+                    <div class="row g-4 mb-5">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <!-- Check mark with honey color -->
+                                <div class="flex-shrink-0 btn-lg-square bg-white" style="color: #d89c03; border: 2px solid #d89c03; border-radius: 50%;">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark ms-3">Raw, unpasteurized honey with natural goodness</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <!-- Check mark with honey color -->
+                                <div class="flex-shrink-0 btn-lg-square bg-white" style="color: #d89c03; border: 2px solid #d89c03; border-radius: 50%;">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark ms-3">Unique flavors influenced by the season's nectar</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <!-- Check mark with honey color -->
+                                <div class="flex-shrink-0 btn-lg-square bg-white" style="color: #d89c03; border: 2px solid #d89c03; border-radius: 50%;">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark ms-3">Exceptional taste, unmatched by mass-produced honey</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <!-- Check mark with honey color -->
+                                <div class="flex-shrink-0 btn-lg-square bg-white" style="color: #d89c03; border: 2px solid #d89c03; border-radius: 50%;">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark ms-3">Good for health & beauty</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Explore More button with honey color -->
+                    <a class="btn rounded-pill py-3 px-5" href="" style="background-color: #d89c03; color: white;">Explore More</a>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                    <button type="button" class="btn-play" data-bs-toggle="modal"
+                        data-src="{% static 'videos/1000322472.mp4' %}" data-bs-target="#videoModal">
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video End -->
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Honey Web. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    
+    <script>
+       
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dots .carousel-button');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(${-(index * 100)}%)`;
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            const nextSlide = (currentSlide + 1) % slides.length;
+            showSlide(nextSlide);
+        }
+        
+        function prevSlide() {
+            const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevSlide);
+        }
+        
+        // Initialize
+        showSlide(currentSlide);
+        
+        // Auto-slide
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const videoSrc = "{% static 'videos/1000322472.mp4' %}"; // Video URL
+            const videoModal = document.getElementById('videoModal');
+            const videoIframe = document.getElementById('video');
+        
+            // When the modal is shown, set the video source and autoplay
+            videoModal.addEventListener('shown.bs.modal', function () {
+                videoIframe.src = videoSrc + "?autoplay=1";
+            });
+        
+            // When the modal is hidden, stop the video
+            videoModal.addEventListener('hidden.bs.modal', function () {
+                videoIframe.src = "";
+            });
+        });
+        
+
+
+    
+    </script>
+    
+
+</body>
+
+</html>
