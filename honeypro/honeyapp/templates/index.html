@@ -14,11 +14,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <!-- Owl Carousel Theme CSS (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.default.min.css" />
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="path_to_owl.carousel.min.css">
+    <link rel="stylesheet" href="path_to_owl.theme.default.min.css">
+    <script src="{% static 'path_to/owl.carousel.min.js' %}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <style>
         .carousel-slide {
             flex: 0 0 100%;
@@ -28,14 +46,12 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        
         .carousel-slide .content-wrapper {
             position: relative;
-            background: rgba(255, 255, 255, 0.5); /* Semi-transparent background for content area */
+            background: rgba(256, 256, 256, 0.5);
             padding: 10px;
-            border-radius: 8px; /* Optional: to make the content area look more distinct */
+            border-radius: 8px;
         }
-        
         .carousel-slide::before {
             content: "";
             position: absolute;
@@ -49,185 +65,588 @@
             background-size: cover;
             background-position: center;
         }
-        
-        .carousel-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: gray;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
+        .video {
+            position: relative;
+            overflow: hidden;
+            background: 
+                linear-gradient(rgba(245, 198, 102, 0.7), rgba(245, 198, 102, 1.5)), 
+                url('{% static "assets/images/two.jpg" %}') center center / cover no-repeat;
         }
         
-        .carousel-button.active {
-            background-color: black;
-        }
-        
-        .carousel-dots {
+        /* Pseudo-element for the wave effect */
+        .video::before {
+            content: "";
             position: absolute;
-            bottom: 10px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* White overlay with opacity */
+            pointer-events: none; /* Make sure it doesn't block interactions */
+            animation: waveEffect 10s infinite linear; /* Apply the animation */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Full area */
+        }
+        
+        /* Keyframes for the wave effect */
+        @keyframes waveEffect {
+            0% {
+                transform: translateY(0); /* Start position */
+            }
+            50% {
+                transform: translateY(-20px); /* Middle position */
+            }
+            100% {
+                transform: translateY(0); /* End position */
+            }
+        }
+        
+        
+        
+        .btn-play {
+            position: relative;
+            display: block;
+            box-sizing: content-box;
+            width: 65px;
+            height: 75px;
+            border-radius: 100%;
+            border: none;
+            outline: none !important;
+            padding: 28px 30px 30px 38px;
+            background: #FFFFFF;
+            cursor: pointer;
+        }
+        
+        .btn-play:before {
+            content: "";
+            position: absolute;
+            z-index: 0;
             left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
-        }
-        
-        .carousel-button.prev,
-        .carousel-button.next {
-            position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
+            transform: translateX(-50%) translateY(-50%);
+            display: block;
+            width: 120px;
+            height: 120px;
+            background: #FFFFFF;
+            border-radius: 100%;
+            animation: pulse-border 1500ms ease-out infinite;
+        }
+        
+        .btn-play:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: block;
+            width: 120px;
+            height: 120px;
+            background: #FFFFFF;
+            border-radius: 100%;
+            transition: all 200ms;
+        }
+        
+        .btn-play span {
+            display: block;
+            position: relative;
+            z-index: 3;
+            width: 0;
+            height: 0;
+            left: 13px;
+            border-left: 40px solid #d89c03; /* Honey color for the play icon */
+            border-top: 28px solid transparent;
+            border-bottom: 28px solid transparent;
+        }
+        
+        @keyframes pulse-border {
+            0% {
+                transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+                opacity: 1;
+            }
+    
+            100% {
+                transform: translateX(-50%) translateY(-50%) translateZ(0) scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .modal-video .modal-dialog {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .modal-video .modal-body {
+            padding: 0;
+        }
+        
+        .modal-video .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            background: none;
             border: none;
-            cursor: pointer;
-            padding: 10px;
         }
         
-        .carousel-button.prev {
-            left: 10px;
+        .modal-video .ratio-16x9 {
+            width: 100%;
+            padding-bottom: 59.25%;
+            position: relative;
         }
         
-        .carousel-button.next {
+        .modal-video .ratio-16x9 video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+        
+        .modal-video .close {
+            position: absolute;
+            width: 30px;
+            height: 30px;
             right: 10px;
+            top: 10px;
+            z-index: 999;
+            font-size: 30px;
+            font-weight: normal;
+            color: #FFFFFF;
+            background: #000000;
+            opacity: 1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }    
+      
+
+        @keyframes arrowAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
         
-/*** About ***/
-.video {
-    background: 
-    linear-gradient(rgba(245, 198, 102, 0.7), rgba(245, 198, 102, 0.7)), 
-    url('/static/assets/images/s2.jpg') center center / cover no-repeat;
+        .arrow {
+            display: inline-block;
+            font-size: 2rem;
+            color: #FBBF24; /* Tailwind yellow-400 */
+            animation: arrowAnimation 1s infinite;
+        }
 
+        /* Add this CSS to your stylesheet */
+        /* Add this CSS to your stylesheet */
 
-}
-
-
-.btn-play {
-    position: relative;
-    display: block;
-    box-sizing: content-box;
-    width: 65px;
-    height: 75px;
-    border-radius: 100%;
-    border: none;
-    outline: none !important;
-    padding: 28px 30px 30px 38px;
-    background: #FFFFFF;
-}
-
-.btn-play:before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: block;
-    width: 120px;
-    height: 120px;
-    background: #FFFFFF;
-    border-radius: 100%;
-    animation: pulse-border 1500ms ease-out infinite;
-}
-
-.btn-play:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: block;
-    width: 120px;
-    height: 120px;
-    background: #FFFFFF;
-    border-radius: 100%;
-    transition: all 200ms;
-}
-
-.btn-play span {
-    display: block;
-    position: relative;
-    z-index: 3;
-    width: 0;
-    height: 0;
-    left: 13px;
-    border-left: 40px solid var(--primary);
-    border-top: 28px solid transparent;
-    border-bottom: 28px solid transparent;
-}
-
-@keyframes pulse-border {
-    0% {
-        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(2);
-        opacity: 0;
-    }
-}
-
-.modal-video .modal-dialog {
-    position: relative;
-    max-width: 800px;
-    margin: 60px auto;
-    border-radius: 15px; /* Rounded corners for the modal */
-    overflow: hidden; /* Ensure the video stays within the rounded corners */
-}
-
-.modal-video .modal-body {
-    padding: 0;
-}
-
-.modal-video .modal-content {
-    border-radius: 15px; /* Rounded corners for the modal content */
-    overflow: hidden; /* Clip the content to the border radius */
-    background: none; /* Ensure the video fills the content */
-    border: none; /* Remove any default borders */
-}
-
-.modal-video .ratio-16x9 {
-    width: 100%;
-    padding-bottom: 59.25%; /* 16:9 aspect ratio */
-    position: relative;
-}
-
-.modal-video .ratio-16x9 iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px; /* Rounded corners for the video */
-    border: none; /* Remove any border around the iframe */
-    object-fit: cover; /* Ensures the video fits within the rectangle */
-}
-
-.modal-video .close {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 10px;
-    top: 10px;
-    z-index: 999;
-    font-size: 30px;
-    font-weight: normal;
-    color: #FFFFFF;
-    background: #000000;
-    opacity: 1;
-    border-radius: 50%; /* Rounded close button */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
+        .blog-container {
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping of cards */
+            gap: 1.5rem; /* Adjust the gap between cards as needed */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            padding: 1rem;
+            margin-left:100px;
+        }
+        
+        .blog-card {
+            flex: 0 0 auto; /* Prevent the cards from shrinking or growing */
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: 480px; /* Fixed height for consistency */
+            transition: transform 0.3s ease-in-out;
+            width: 300px; /* Fixed width for consistency */
+        }
+        
+        .blog-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .blog-card img {
+            width: 100%;
+            height: 200px; /* Adjust based on card height */
+            object-fit: cover;
+        }
+        
+        .blog-card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 1rem;
+            
+        }
+        
+        .blog-card h2 {
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #e77f3f; /* Adjust color as needed */
+        }
+        
+        .blog-card h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color:#FFB81C; 
+        }
+        
+        .blog-card p {
+            margin-bottom: 0.5rem;
+            color: #6b7280;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        
+        .blog-card-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .blog-card-footer svg {
+            height: 1rem;
+            width: 1rem;
+        }
+        /* Base styles for the button */
+        .learn-more-btn {
+            display: inline-block; /* Ensures the button is inline */
+            margin-top: 1rem; /* mt-4 */
+            padding: 0.5rem 1.5rem; /* py-2 px-4 */
+            background-color: #FBBF24; /* bg-yellow-500 */
+            color: #000; /* text-black */
+            border-radius: 100px; /* rounded-full */
+            text-align: center;
+            margin-right:140px;
+            text-decoration: none;
+            font-weight: 500; /* Optional: adjust font weight */
+            transition: background-color 0.3s ease;
+            width: auto; /* Adjust width based on content */
+            height: 40px;
+            line-height: 40px; /* Ensures text is centered vertically */
+            padding-left: 1rem; /* Add padding if needed for alignment */
+            padding-right: 1rem; /* Add padding if needed for alignment */
+            white-space: nowrap; /* Prevents text from wrapping */
+            display: flex; /* Use flexbox to center text horizontally */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+        }
+        
+        /* Hover effect */
+        .learn-more-btn:hover {
+            background-color: #F59E0B; /* bg-yellow-600 */
+        }
+        
+        .testimonials { 
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 50px 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            right: 0; 
+            left: 0; 
+            top: 0; 
+            bottom: 0;
+            background: rgba(255,216,50,.7);
+        }
+        .testimonials .title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding: 20px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .testimonials .title h5 {
+            color: #EB6D2F;
+            line-height: 1.2em;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: -3px;
+        }
+        .testimonials .title h2 {
+            color: #5A3733;
+            line-height: 1.2em;
+            font-weight: 900;
+            font-size: 41px;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+        .testimonials .testi .item {
+            background: #fff;
+            padding: 50px 30px;
+            border-radius: 15px;
+        }
+        .testimonials .testi .item .profile {
+            display: flex;
+            padding-left: 15px;
+        }
+        .testimonials .testi .item .profile img {
+            border-radius: 100%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .testimonials .testi .item .profile .information {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .testimonials .testi .item .profile .information .stars i {
+            color: #ffd832;
+        }
+        .testimonials .testi .item .profile .information p {
+            font-size: 24px;
+            margin: 0px auto 0px;
+            color: #5A3733;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .testimonials .testi .item .profile .information span {
+            color: #EB6D2F;
+            font-weight: bold;
+            margin-top: -4px;
+            line-height: 1.6em;
+            font-size: 14px;
+        }
+        .testimonials .testi .item > p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.6em;
+            display: block;
+            z-index: 2;
+            font-style: italic;
+            color: #5A3733;
+            text-align: center;
+        }
+        .testimonials .testi .item .icon {
+            text-align: center;
+        }
+        .testimonials .testi .item .icon i {
+            font-size: 32px;
+            color: #FFD832;
+        }
         
 
+        @keyframes slide {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-100%);
+            }
+          }
+          
+          .animate-slide {
+            animation: slide 15s linear infinite;
+          }
 
-    </style>
+          /* Clients Section Styles */
+          #clients {
+              background: #FFF;
+              text-align: center;
+              padding: 50px 0;
+          }
+  
+          .clients-carousel .item figure {
+              margin: 10px;
+              width: 150px;
+              margin: 0 auto;
+          }
+  
+          .clients-carousel .item figure img {
+              display: block;
+              margin: 0 auto;
+              opacity: 0.5;
+              transition: opacity 0.3s ease;
+          }
+  
+          .clients-carousel .item figure img:hover {
+              opacity: 1;
+          }
+  
+          /* Owl Carousel Navigation Button Styles */
+          .owl-nav .nav-button {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              background-color: #d89c03; /* Background color */
+              color: white; /* Text color */
+              border-radius: 50%; /* Round shape */
+              padding: 10px; /* Padding around the button */
+              font-size: 20px; /* Font size for arrows */
+              cursor: pointer; /* Pointer cursor on hover */
+              box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+              transition: all 0.3s ease; /* Smooth transition */
+          }
+  
+          .owl-nav .owl-prev {
+              left: -40px; /* Positioning left button */
+          }
+  
+          .owl-nav .owl-next {
+              right: -40px; /* Positioning right button */
+          }
+  
+          .owl-nav .nav-button:hover {
+              background-color: #f7b900; /* Change background on hover */
+              box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+              transform: translateY(-50%) scale(1.1); /* Slight scale on hover */
+          }
+
+
+          #contact {
+            background: url('{% static "assets/images/joqq.jpg" %}')  no-repeat center center; /* Adjust path to your image */
+            background-size: cover; /* Ensure the image covers the entire section */
+            padding: 5rem 0; /* Adjust padding as needed */
+        }
+
+          /* Animation for the Image */
+          @keyframes bounce {
+              0%, 20%, 50%, 80%, 100% {
+                  transform: translateY(0);
+              }
+              40% {
+                  transform: translateY(-20px);
+              }
+              60% {
+                  transform: translateY(-10px);
+              }
+          }
+          
+          .animated-image {
+              animation: bounce 2s infinite;
+          }
+          
+          /* Input Fields and Button Styling */
+          .form-control {
+              min-height: 52px;
+              padding: 15px;
+              font-size: 16px;
+              color: hsl(59, 89%, 48%);
+              border-radius: 0.65rem;
+              border: 1px solid #efec80;
+              background: #ffffff; /* Ensure the background is white */
+              box-shadow: 0 8px 13px rgba(0, 0, 0, 0.1); /* Slight shadow */
+              transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+          }
+          
+          .form-control:focus {
+              border-color: #d89c03 !important; /* Honey color border on focus */
+              outline: none !important;
+              background: #efec80 !important; /* Light yellow background when focused */
+              box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important; /* Stronger shadow on focus */
+          }
+          
+          textarea.form-control {
+              resize: none;
+          }
+          
+          .btn-primary {
+              transition: transform 0.3s ease-in-out;
+          }
+          
+          .btn-primary:hover {
+              transform: scale(1.05);
+          }
+          
+          /* Adjust heading margin */
+          .section-title {
+              margin-top: 20px; /* Adjust this value as needed */
+          }
+          
+          
+          
+          /*** Footer Start ***/
+          .footer {
+              background:url('{% static "assets/images/footer.jpg" %}')no-repeat center center;
+              background-size: cover;
+              position: relative;
+              overflow: hidden;
+          }
+          
+          .footer::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(255, 255, 255, 0.5); /* Light white overlay */
+              filter: blur(8px); /* Adjust blur intensity */
+              z-index: 0; /* Make sure the overlay is behind the content */
+          }
+  
+          .footer .container {
+              position: relative;
+              z-index: 1; /* Ensure content is above the overlay */
+          }
+          
+          .footer .footer-item a {
+              line-height: 35px;
+              color: var(--bs-dark); /* Dark color for better readability */
+              transition: 0.5s;
+          }
+  
+          .footer .footer-item p {
+              line-height: 35px;
+          }
+  
+          .footer .footer-item a:hover {
+              letter-spacing: 1px;
+              color: var(--bs-primary);
+          }
+  
+          .footer .footer-item .footer-btn a {
+              transition: 0.5s;
+          }
+  
+          .footer .footer-item .footer-btn a:hover {
+              background: var(--bs-primary);
+              color: var(--bs-white);
+          }
+  
+          .footer .btn-primary {
+              background-color: #d89c03; /* Yellow color */
+              border-color: #d89c03; /* Yellow color */
+          }
+  
+          .footer .btn-primary:hover {
+              background-color: #d89c03; /* Yellow color */
+              border-color: #d89c03; /* Yellow color */
+              color: white;
+          }
+  
+          .footer-item img {
+              width: 50px; /* Adjust the width as needed */
+              height: auto; /* Maintain aspect ratio */
+              border-radius: ; /* Optional: Add border-radius for a circular logo */
+          }
+  
+          .footer-item h3 {
+              margin-bottom: 0; /* Remove bottom margin to better align with image */
+          }
+  
+          .footer-item p {
+              text-align: center; /* Center the paragraph text */
+          }
+          /*** Footer End ***/  
+              
+         
+
+      </style>
+
+          
+   
 </head>
 
 <body>
@@ -337,18 +756,8 @@
                 </div>
             </div>
         </div>
-
-        <!-- Carousel Controls -->
-        <button class="carousel-button prev" onclick="prevSlide()">&#10094;</button>
-        <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
-        <div class="carousel-dots">
-            <button class="carousel-button active"></button>
-            <button class="carousel-button"></button>
-            <button class="carousel-button"></button>
-        </div>
     </div>
 </section>
-
 
 <div class="container mx-auto p-8">
     <div class="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -403,16 +812,14 @@
     </div>
 </div>
 
-
-
 <!-- Video Start -->
 <div class="container-fluid video my-5">
     <div class="container">
         <div class="row g-0">
             <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
                 <div class="py-5">
-                    <!-- The Honey Farm heading with honey color -->
-                    <h1 class="display-6 mb-4" style="color: #d89c03;">THE HONEY FARM</h1>
+                    <!-- The Honey Farm heading with bigger font size and honey color -->
+                    <h1 class="display-6 mb-4" style="color: #d89c03; font-size: 4rem; font-weight: bold;">THE HONEY FARM</h1>
                     
                     <h5 class="fw-normal lh-base fst- text-white mb-5">Our honey from the Western Ghats is packed with the nutrients of local blooms, untouched by harsh processing. Every jar offers a taste of nature, crafted by our hardworking bees.</h5>
                     
@@ -460,8 +867,7 @@
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
-                    <button type="button" class="btn-play" data-bs-toggle="modal"
-                        data-src="{% static 'videos/1000322472.mp4' %}" data-bs-target="#videoModal">
+                    <button type="button" class="btn-play" data-bs-toggle="modal" data-bs-target="#videoModal">
                         <span></span>
                     </button>
                 </div>
@@ -469,33 +875,516 @@
         </div>
     </div>
 </div>
-
 <!-- Video End -->
 
-
-
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 Honey Web. All rights reserved.</p>
+<!-- Video Modal Start -->
+<div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Honey Farm Video</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    <video class="embed-responsive-item rounded" controls>
+                        <source src="{% static 'assets/videos/joe.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</div>
+<!-- Video Modal End -->
+
+
+<!-- flow -->
+<div class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <!-- Step 1 -->
+            <div>
+                <img src="{% static 'assets/images/how-1.png' %}" alt="Flower Image" class="mx-auto mb-4">
+                <h2 class="text-yellow-600 font-bold text-lg flex items-center justify-center">
+                    <span class="arrow mr-2 text-red-600 text-2xl">→</span>
+                    <span>Flowers produce nectar and attract our bees</span>
+                </h2>
+                <p class="text-gray-600">Suspendisse mattis enim velit. Maecenas egestas mi auctor tortor imperdiet.</p>
+            </div>
+            <!-- Step 2 -->
+            <div>
+                <img src="{% static 'assets/images/how-2.png' %}" alt="Bees Collecting Nectar" class="mx-auto mb-4">
+                <h2 class="text-yellow-600 font-bold text-lg flex items-center justify-center">
+                    <span class="arrow mr-2 text-red-600 text-2xl">→</span>
+                    <span>Bees collect the nectar and carry it to the beehive</span>
+                </h2>
+                <p class="text-gray-600">Suspendisse mattis enim velit. Maecenas egestas mi auctor tortor imperdiet.</p>
+            </div>
+            <!-- Step 3 -->
+            <div>
+                <img src="{% static 'assets/images/how-3.png' %}" alt="Beehive" class="mx-auto mb-4">
+                <h2 class="text-yellow-600 font-bold text-lg flex items-center justify-center">
+                    <span class="arrow mr-2 text-red-600 text-2xl">→</span>
+                    <span>Bees seal cells with wax and honey ripens</span>
+                </h2>
+                <p class="text-gray-600">Suspendisse mattis enim velit. Maecenas egestas mi auctor tortor imperdiet.</p>
+            </div>
+            <!-- Step 4 -->
+            <div>
+                <img src="{% static 'assets/images/how-4.png' %}" alt="Honey Jar" class="mx-auto mb-4">
+                <h2 class="text-yellow-600 font-bold text-lg flex items-center justify-center">
+                    <span class="arrow mr-2 text-red-600 text-2xl">→</span>
+                    <span>We collect the product and transfer it to the packaging</span>
+                </h2>
+                <p class="text-gray-600">Suspendisse mattis enim velit. Maecenas egestas mi auctor tortor imperdiet.</p>
+            </div>
+        </div>
+        <div class="mt-8 text-center">
+
+            <button class="bg-gradient-to-r from-yellow-600 via-yellow-500 to-red-600 text-white py-2 px-6 rounded-full hover:from-yellow-500 hover:via-yellow-400 hover:to-red-500 transition duration-300 ease-in-out">
+                Learn More
+              </button>
+                
+            
+        </div>
+    </div>
+</div>
+<!-- flow End -->
+
+
+<section class="w-screen py-20">
+    <h1 class="mb-12 text-center font-sans text-5xl font-bold" style="color: #FFB81C;">Recent Our Blog</h1>
+
+    <div class="blog-container">
+
+        <article class="blog-card">
+            <img src="{% static 'assets/images/blog1.jpg' %}" alt="blog" />
+            <div class="blog-card-content">
+                <h2 class="title-font">Cities</h2>
+                <h1 class="title-font">This season,increased yield of honey</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
+                <div class="blog-card-footer">
+                    <span>Oct 30, 2022 · 9 min read</span>
+                    <span class="inline-flex items-center py-1 pr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        3.5K
+                    </span>
+                </div>
+                <!-- Learn More Button -->
+                <a href="#" class="learn-more-btn">Learn More</a>
+
+
+
+            </div>
+        </article>
+
+        <article class="blog-card">
+            <img src="{% static 'assets/images/blog2.jpg' %}" alt="blog" />
+            <div class="blog-card-content">
+                <h2 class="title-font">Cities</h2>
+                <h1 class="title-font">Our beekeepers begin to collect honey</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
+                <div class="blog-card-footer">
+                    <span>Oct 30, 2022 · 9 min read</span>
+                    <span class="inline-flex items-center py-1 pr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        3.5K
+                    </span>
+                </div>
+                <!-- Learn More Button -->
+                <a href="#" class="learn-more-btn">Learn More</a>
+
+            </div>
+        </article>
+
+        <article class="blog-card">
+            <img src="{% static 'assets/images/blog3.jpg' %}" alt="blog" />
+            <div class="blog-card-content">
+                <h2 class="title-font">Cities</h2>
+                <h1 class="title-font">Definitions of honey naturalness</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
+                <div class="blog-card-footer">
+                    <span>Oct 30, 2022 · 9 min read</span>
+                    <span class="inline-flex items-center py-1 pr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        3.5K
+                    </span>
+                </div>
+                <!-- Learn More Button -->
+                <a href="#" class="learn-more-btn">Learn More</a>
+
+            </div>
+        </article>
+
+        <article class="blog-card">
+            <img src="{% static 'assets/images/blog4.jpg' %}" alt="blog" />
+            <div class="blog-card-content">
+                <h2 class="title-font">Cities</h2>
+                <h1 class="title-font">How the honeybee makes honey in pour apiaries</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
+                <div class="blog-card-footer">
+                    <span>Oct 30, 2022 · 9 min read</span>
+                    <span class="inline-flex items-center py-1 pr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        3.5K
+                    </span>
+                </div>
+                <!-- Learn More Button -->
+                <a href="#" class="learn-more-btn">Learn More</a>
+
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- Start clients -->
+<section id="clients" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="title-box text-center">
+                <h2 class="title" style="color: #d89c03; font-size: 26px; font-weight: bold;">Our Certificate</h2>
+
+            </div>
+            <br>
+            <br>
+            <div class="clients-carousel owl-carousel">
+                <!-- Clients Logo Item-->
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/cl1.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-2.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-3.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-4.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <!-- Repeat similar blocks for other client logos -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End clients -->
+
+
+
+
+  
+  <br>
+  <br>
+  <section class="testimonials" style="background-image: url('https://images.unsplash.com/photo-1580912458702-6fa698fc553e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
+    <div class="container">
+        <div class="title">
+            <h5>Testimonials</h5>
+            <h2> our user say</h2>
+        </div>
+        <div class="owl-carousel owl-theme testi">
+            <!-- Single Testimonial Starts -->
+            <div class="item">
+                <div class="profile">
+                    <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80" alt="">
+                    <div class="information">
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>berlin joe</p>
+                        <span>Web Developer</span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita velit labore suscipit distinctio, officiis deserunt rem blanditiis ducimus. Voluptate quaerat assumenda qui veniam facilis doloribus maiores impedit ducimus cum accusamus.</p>
+                <div class="icon">
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <!-- Single Testimonial Ends -->
+            <div class="item">
+                <div class="profile">
+                    <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80" alt="">
+                    <div class="information">
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>shyni</p>
+                        <span>user</span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita velit labore suscipit distinctio, officiis deserunt rem blanditiis ducimus. Voluptate quaerat assumenda qui veniam facilis doloribus maiores impedit ducimus cum accusamus.</p>
+                <div class="icon">
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="item">
+                <div class="profile">
+                    <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80" alt="">
+                    <div class="information">
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>shylas</p>
+                        <span>user</span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita velit labore suscipit distinctio, officiis deserunt rem blanditiis ducimus. Voluptate quaerat assumenda qui veniam facilis doloribus maiores impedit ducimus cum accusamus.</p>
+                <div class="icon">
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+
+ <div class="item">
+                <div class="profile">
+                    <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80" alt="">
+                    <div class="information">
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>joe</p>
+                        <span>user</span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita velit labore suscipit distinctio, officiis deserunt rem blanditiis ducimus. Voluptate quaerat assumenda qui veniam facilis doloribus maiores impedit ducimus cum accusamus.</p>
+                <div class="icon">
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+   
+
+<section id="contact" class="section py-5">
+    <!-- Container Starts -->
+    <div class="container">
+        <!-- Section Header -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="section-title text-3xl font-bold text-yellow-800 mb-4">Get In Touch</h2>
+            </div>
+        </div>
+
+        <!-- Start Row -->
+        <div class="row align-items-center">
+            <!-- Start Col (Form) -->
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <form id="contactForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <input type="text" class="form-control shadow-lg focus:shadow-2xl focus:ring-0 focus:border-[#d89c03] focus:outline-none rounded-full" id="name" name="name" placeholder="Name" required data-error="Please enter your name">
+                                <div class="help-block with-errors"></div>
+                            </div>                                 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <input type="text" placeholder="Subject" id="msg_subject" class="form-control shadow-lg focus:shadow-2xl focus:ring-0 focus:border-[#d89c03] focus:outline-none rounded-full" name="msg_subject" required data-error="Please enter your subject">
+                                <div class="help-block with-errors"></div>
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <input type="email" class="form-control shadow-lg focus:shadow-2xl focus:ring-0 focus:border-[#d89c03] focus:outline-none rounded-full" id="email" name="email" placeholder="Email" required data-error="Please enter your Email">
+                                <div class="help-block with-errors"></div>
+                            </div>                                 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <input type="text" placeholder="Budget" id="budget" class="form-control shadow-lg focus:shadow-2xl focus:ring-0 focus:border-[#d89c03] focus:outline-none rounded-full" name="budget" required data-error="Please enter your Budget">
+                                <div class="help-block with-errors"></div>
+                            </div> 
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4"> 
+                                <textarea class="form-control shadow-lg focus:shadow-2xl focus:ring-0 focus:border-[#d89c03] focus:outline-none rounded-lg" id="message" name="message" placeholder="Write Message" rows="4" data-error="Write your message" required></textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="submit-button">
+                                <button class="btn btn-primary shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" id="submit" type="submit" style="background-color: #d89c03; border-color: #d89c03; border-radius: 50px; color: white;">Submit</button>
+                                <div id="msgSubmit" class="h3 hidden"></div> 
+                                <div class="clearfix"></div> 
+                            </div>
+                        </div>
+                    </div>            
+                </form>
+            </div>
+            <!-- End Col (Form) -->
+            <!-- Start Col (Image) -->
+            <div class="col-lg-6 col-md-12 text-center">
+                <div class="contact-img">
+                    <img src="{% static 'images/test.png' %}" class="img-fluid mx-auto animated-image" alt="Contact Image" style="max-width: 80%; height: auto; margin-bottom:120px;">
+                </div>
+            </div>
+            <!-- End Col (Image) -->
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- Container Ends -->
+</section>
+
+    
+
+<div class="container-fluid footer bg-light py-5 wow fadeIn" data-wow-delay="0.2s">
+    <div class="container py-5">
+        <div class="row g-5 mb-5 align-items-center">
+            <div class="col-lg-7">
+                <div class="position-relative mx-auto">
+                    <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Email address to Subscribe">
+                    <button type="button" class="btn btn-primary position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                    <a class="btn btn-light btn-md-square me-3" href="">
+                        <i class="fab fa-facebook-f" style="color: #d89c03;"></i>
+                    </a>
+                    <a class="btn btn-light btn-md-square me-3" href="">
+                        <i class="fab fa-twitter" style="color: #d89c03;"></i>
+                    </a>
+                    <a class="btn btn-light btn-md-square me-3" href="">
+                        <i class="fab fa-instagram" style="color: #d89c03;"></i>
+                    </a>
+                    <a class="btn btn-light btn-md-square me-0" href="">
+                        <i class="fab fa-linkedin-in" style="color: #d89c03;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column align-items-center">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="{% static 'assets/images/true.jpg' %}" alt="Electra Logo" class="me-3">
+                        <h3 class="text-dark mb-0">
+                            <i class="fas fa-bee" style="color: #d89c03; margin-right: 8px;"></i>
+                            
+                        </h3>
+                    </div>
+                    <p class="mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est. Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="text-dark mb-4">Quick Links</h4>
+                    <a href="#">Home</a>
+                    <a href="#">About us</a>
+                    <a href="#">Service</a>
+                    <a href="#">Testimonial</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="text-dark mb-4">Honey services</h4>
+                    <a href="#">honey</a>
+                    <a href="#">honey</a>
+                    <a href="#">honey</a>
+                    <a href="#">honey</a>
+                    <a href="#">honey</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="text-dark mb-4">Contact Info</h4>
+                    <a href="#"><i class="fa fa-map-marker-alt" style="color: #d89c03; margin-right: 8px;"></i>123 Street, manjalumoodu</a>
+                    <a href="mailto:info@example.com"><i class="fas fa-envelope" style="color: #d89c03; margin-right: 8px;"></i>info@example.com</a>
+                    <a href="tel:+01234567890"><i class="fas fa-phone" style="color: #d89c03; margin-right: 8px;"></i>+012 345 67890</a>
+                    <a href="tel:+01234567890" class="mb-3"><i class="fas fa-print" style="color: #d89c03; margin-right: 8px;"></i>+012 345 67890</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Swiper JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $(".clients-carousel").owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            1000:{
+                items:4
+            }
+        },
+        navText: ["<div class='nav-button owl-prev'>‹</div>", "<div class='nav-button owl-next'>›</div>"]
+    });
+});
+</script>
+
 
     <!-- Scripts -->
     
     <script>
-       
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dots .carousel-button');
         
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.style.transform = `translateX(${-(index * 100)}%)`;
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
             });
             currentSlide = index;
         }
@@ -505,38 +1394,57 @@
             showSlide(nextSlide);
         }
         
-        function prevSlide() {
-            const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(prevSlide);
-        }
-        
         // Initialize
         showSlide(currentSlide);
         
         // Auto-slide
         setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        </script>
+    <!-- JavaScript to Handle Video Playback in Modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const videoModal = document.getElementById('videoModal');
+        const videoElement = videoModal.querySelector('video');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const videoSrc = "{% static 'videos/1000322472.mp4' %}"; // Video URL
-            const videoModal = document.getElementById('videoModal');
-            const videoIframe = document.getElementById('video');
-        
-            // When the modal is shown, set the video source and autoplay
-            videoModal.addEventListener('shown.bs.modal', function () {
-                videoIframe.src = videoSrc + "?autoplay=1";
-            });
-        
-            // When the modal is hidden, stop the video
-            videoModal.addEventListener('hidden.bs.modal', function () {
-                videoIframe.src = "";
-            });
+        // Play video when modal is shown
+        videoModal.addEventListener('shown.bs.modal', function () {
+            videoElement.play();
         });
-        
+
+        // Pause video when modal is hidden
+        videoModal.addEventListener('hidden.bs.modal', function () {
+            videoElement.pause();
+            videoElement.currentTime = 0; // Reset video to the beginning
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.testi.owl-carousel').owlCarousel({
+            items: 2,
+            margin: 10,
+            lazyLoad: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                600: {
+                    items: 2,
+                },
+                1000: {
+                    items: 2,
+                }
+            }
+        });
+    });
+</script>
 
 
-    
-    </script>
-    
+
 
 </body>
 
