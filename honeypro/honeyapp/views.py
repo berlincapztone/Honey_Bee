@@ -5,3 +5,6 @@ def landing_page(request):
 
 def oil_page(request):
     return render(request, 'oil.html')
+
+def spices_page(request):
+    return render(request, 'spices.html')
