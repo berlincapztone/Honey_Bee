@@ -145,7 +145,59 @@
             color: var(--primary) !important;
         }
         
-        
+        /* Clients Section Styles */
+        #clients {
+            background: #FFF;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .clients-carousel .item figure {
+            margin: 10px;
+            width: 150px;
+            margin: 0 auto;
+        }
+
+        .clients-carousel .item figure img {
+            display: block;
+            margin: 0 auto;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .clients-carousel .item figure img:hover {
+            opacity: 1;
+        }
+
+        /* Owl Carousel Navigation Button Styles */
+        .owl-nav .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #d89c03; /* Background color */
+            color: white; /* Text color */
+            border-radius: 50%; /* Round shape */
+            padding: 10px; /* Padding around the button */
+            font-size: 20px; /* Font size for arrows */
+            cursor: pointer; /* Pointer cursor on hover */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+
+        .owl-nav .owl-prev {
+            left: -40px; /* Positioning left button */
+        }
+
+        .owl-nav .owl-next {
+            right: -40px; /* Positioning right button */
+        }
+
+        .owl-nav .nav-button:hover {
+            background-color: #f7b900; /* Change background on hover */
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+            transform: translateY(-50%) scale(1.1); /* Slight scale on hover */
+        }
+  
 
     </style>
 
@@ -183,7 +235,7 @@
         </button>
         <ul class="hidden md:flex flex-1 justify-center space-x-6 text-yellow-800 font-semibold uppercase items-center">
             <li class="scroll-to-section"><a href="{% url 'landing_page' %}" class="hover:text-yellow-700">Home</a></li>
-            <li class="scroll-to-section"><a href="#services" class="hover:text-yellow-700">Honey</a></li>
+            <li class="scroll-to-section"><a href="{% url 'honey_page' %}" class="hover:text-yellow-700">Honey</a></li>
             <li class="scroll-to-section"><a href="#about" class="hover:text-yellow-700">Honey Product</a></li>
             <li class="scroll-to-section"><a href="#portfolio" class="hover:text-yellow-700">Coconut Product</a></li>
             <li class="scroll-to-section"><a href="{% url 'oil_page' %}" class="hover:text-yellow-700">Oil</a></li>
@@ -200,7 +252,7 @@
 <div class="md:hidden hidden" id="mobile-menu">
     <ul class="flex flex-col space-y-2 bg-white text-yellow-800 font-semibold uppercase">
         <li class="scroll-to-section"><a href="{% url 'landing_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
-        <li class="scroll-to-section"><a href="#services" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
+        <li class="scroll-to-section"><a href="{% url 'honey_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
         <li class="scroll-to-section"><a href="#about" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
         <li class="scroll-to-section"><a href="#portfolio" class="block px-4 py-2 hover:bg-yellow-100">Coconut Product</a></li>
         <li class="scroll-to-section"><a href="{% url 'oil_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
@@ -670,7 +722,51 @@
 
 
 
+<!-- Start clients -->
+<section id="clients" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="title-box text-center">
+                <h2 class="title" style="color: #d89c03; font-size: 26px; font-weight: bold;">Our Certificate</h2>
 
+            </div>
+            <br>
+            <br>
+            <div class="clients-carousel owl-carousel">
+                <!-- Clients Logo Item-->
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/cl1.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-2.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-3.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <figure>
+                            <img src="{% static 'assets/images/clients-logo-4.png' %}" alt="Client Logo" />
+                        </figure>
+                    </a>
+                </div>
+                <!-- Repeat similar blocks for other client logos -->
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
@@ -748,9 +844,40 @@
 
 
 
+<!-- Swiper JS -->
+
+<!-- Swiper JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 
-</script>
+<script>
+    $(document).ready(function(){
+        $(".clients-carousel").owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:2
+                },
+                1000:{
+                    items:4
+                }
+            },
+            navText: ["<div class='nav-button owl-prev'>‹</div>", "<div class='nav-button owl-next'>›</div>"]
+        });
+    });
+    </script>
+    
+    
+
 
 </body>
 </html>

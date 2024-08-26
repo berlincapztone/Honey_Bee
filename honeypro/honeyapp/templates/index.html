@@ -678,29 +678,30 @@
             <i class="fa fa-bars"></i>
         </button>
         <ul class="hidden md:flex flex-1 justify-center space-x-6 text-yellow-800 font-semibold uppercase items-center">
-            <li class="scroll-to-section"><a href="#top" class="hover:text-yellow-700">Home</a></li>
-            <li class="scroll-to-section"><a href="#services" class="hover:text-yellow-700">Honey</a></li>
-            <li class="scroll-to-section"><a href="#about" class="hover:text-yellow-700">Honey Product</a></li>
-            <li class="scroll-to-section"><a href="#portfolio" class="hover:text-yellow-700">Coconut Product</a></li>
-            <li class="scroll-to-section"><a href="#video" class="hover:text-yellow-700">Oil</a></li>
-            <li class="scroll-to-section"><a href="#contact" class="hover:text-yellow-700">Spices</a></li>
+            <li><a href="{% url 'landing_page' %}" class="hover:text-yellow-700">Home</a></li>
+            <li><a href="{% url 'honey_page' %}" class="hover:text-yellow-700">Honey</a></li>
+            <li><a href="{% url 'pro_page' %}" class="hover:text-yellow-700">Honey Product</a></li>
+            <li><a href="{% url 'coc_page' %}" class="hover:text-yellow-700">Coconut Product</a></li>
+            <li><a href="{% url 'oil_page' %}" class="hover:text-yellow-700">Oil</a></li>
+            <li><a href="{% url 'spices_page' %}" class="hover:text-yellow-700">Spices</a></li>
         </ul>
+        
         <div class="hidden md:flex space-x-4 text-yellow-800 items-center">
             <a href="#" class="hover:text-yellow-700"><i class="fa fa-search"></i></a>
             <a href="#" class="hover:text-yellow-700"><i class="fa fa-shopping-cart"></i></a>
             <a href="#" class="hover:text-yellow-700"><i class="fa fa-shopping-bag"></i></a>
         </div>
     </div>
-
+    
     <!-- Mobile Menu -->
 <div class="md:hidden hidden" id="mobile-menu">
     <ul class="flex flex-col space-y-2 bg-white text-yellow-800 font-semibold uppercase">
-        <li class="scroll-to-section"><a href="#top" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
-        <li class="scroll-to-section"><a href="#services" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
-        <li class="scroll-to-section"><a href="#about" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
+        <li class="scroll-to-section"><a href="{% url 'landing_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
+        <li class="scroll-to-section"><a href="{% url 'honey_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
+        <li class="scroll-to-section"><a href="{% url 'pro_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
         <li class="scroll-to-section"><a href="#portfolio" class="block px-4 py-2 hover:bg-yellow-100">Coconut Product</a></li>
-        <li class="scroll-to-section"><a href="#video" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
-        <li class="scroll-to-section"><a href="#contact" class="block px-4 py-2 hover:bg-yellow-100">Spices</a></li>
+        <li class="scroll-to-section"><a href="{% url 'oil_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
+        <li class="scroll-to-section"><a href="{% url 'spices_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Spices</a></li>
     </ul>
 </div>
 
