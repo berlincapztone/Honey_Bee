@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-r1ybrfuc0!0-d70=i4yu29614h)^u@a1f0b7(jj%+yz*m0)dcs'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app']  # Add your Vercel domain
 
 # Application definition
@@ -81,10 +81,9 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
-# Add these settings if they are not already present
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

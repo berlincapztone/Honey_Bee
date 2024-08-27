@@ -16,10 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.http import HttpResponse
+
+# This is the test view to verify static file serving
+def test_static(request):
+    return HttpResponse('Static files test')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('honeyapp.urls')),
-    
+    path('test-static/', test_static),  # Add the test route
+    path('', include('honeyapp.urls')),  # Include your app's URLs
 ]
+
+# Serve static files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
