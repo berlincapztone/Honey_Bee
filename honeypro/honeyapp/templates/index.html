@@ -230,28 +230,23 @@
             color: #FBBF24; /* Tailwind yellow-400 */
             animation: arrowAnimation 1s infinite;
         }
-
-        /* Add this CSS to your stylesheet */
-        /* Add this CSS to your stylesheet */
-
         .blog-container {
             display: flex;
-            flex-wrap: nowrap; /* Prevent wrapping of cards */
-            gap: 1.5rem; /* Adjust the gap between cards as needed */
-            overflow-x: auto; /* Enable horizontal scrolling */
+            flex-wrap: nowrap;
+            gap: 1.5rem;
+            overflow-x: auto;
             padding: 1rem;
-            margin-left:100px;
         }
         
         .blog-card {
-            flex: 0 0 auto; /* Prevent the cards from shrinking or growing */
+            flex: 0 0 auto;
             border: 2px solid #e5e7eb;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            height: 480px; /* Fixed height for consistency */
+            height: 480px;
             transition: transform 0.3s ease-in-out;
-            width: 300px; /* Fixed width for consistency */
+            width: 300px;
         }
         
         .blog-card:hover {
@@ -260,7 +255,7 @@
         
         .blog-card img {
             width: 100%;
-            height: 200px; /* Adjust based on card height */
+            height: 200px;
             object-fit: cover;
         }
         
@@ -269,7 +264,6 @@
             flex-direction: column;
             flex-grow: 1;
             padding: 1rem;
-            
         }
         
         .blog-card h2 {
@@ -277,14 +271,14 @@
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            color: #e77f3f; /* Adjust color as needed */
+            color: #e77f3f;
         }
         
         .blog-card h1 {
             margin-bottom: 0.5rem;
             font-size: 1.25rem;
             font-weight: 700;
-            color:#FFB81C; 
+            color: #FFB81C;
         }
         
         .blog-card p {
@@ -300,14 +294,36 @@
         .blog-card-footer {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
             font-size: 0.875rem;
             color: #6b7280;
         }
         
-        .blog-card-footer svg {
-            height: 1rem;
-            width: 1rem;
+        .learn-more-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #FFB81C;
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s ease-in-out;
+            text-decoration: none;
         }
+        
+        .learn-more-btn:hover {
+            background-color: #e77f3f;
+        }
+        
+        @media (max-width: 1024px) {
+            .blog-card {
+                width: 100%;
+            }
+        }
+        
         /* Base styles for the button */
         .learn-more-btn {
             display: inline-block; /* Ensures the button is inline */
@@ -560,81 +576,79 @@
           
           
           
-          /*** Footer Start ***/
           .footer {
-              background:url('{% static "assets/images/footer.jpg" %}')no-repeat center center;
-              background-size: cover;
-              position: relative;
-              overflow: hidden;
-          }
-          
-          .footer::before {
-              content: "";
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: rgba(255, 255, 255, 0.5); /* Light white overlay */
-              filter: blur(8px); /* Adjust blur intensity */
-              z-index: 0; /* Make sure the overlay is behind the content */
-          }
-  
-          .footer .container {
-              position: relative;
-              z-index: 1; /* Ensure content is above the overlay */
-          }
-          
-          .footer .footer-item a {
-              line-height: 35px;
-              color: var(--bs-dark); /* Dark color for better readability */
-              transition: 0.5s;
-          }
-  
-          .footer .footer-item p {
-              line-height: 35px;
-          }
-  
-          .footer .footer-item a:hover {
-              letter-spacing: 1px;
-              color: var(--bs-primary);
-          }
-  
-          .footer .footer-item .footer-btn a {
-              transition: 0.5s;
-          }
-  
-          .footer .footer-item .footer-btn a:hover {
-              background: var(--bs-primary);
-              color: var(--bs-white);
-          }
-  
-          .footer .btn-primary {
-              background-color: #d89c03; /* Yellow color */
-              border-color: #d89c03; /* Yellow color */
-          }
-  
-          .footer .btn-primary:hover {
-              background-color: #d89c03; /* Yellow color */
-              border-color: #d89c03; /* Yellow color */
-              color: white;
-          }
-  
-          .footer-item img {
-              width: 50px; /* Adjust the width as needed */
-              height: auto; /* Maintain aspect ratio */
-              border-radius: ; /* Optional: Add border-radius for a circular logo */
-          }
-  
-          .footer-item h3 {
-              margin-bottom: 0; /* Remove bottom margin to better align with image */
-          }
-  
-          .footer-item p {
-              text-align: center; /* Center the paragraph text */
-          }
-          /*** Footer End ***/  
-              
+            background: url('{% static "assets/images/footer.jpg" %}') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5); /* Light white overlay */
+            z-index: 0; /* Behind content */
+        }
+    
+        .footer .container {
+            position: relative;
+            z-index: 1; /* Above overlay */
+        }
+    
+        .footer .footer-item a {
+            line-height: 35px;
+            color: var(--bs-dark); /* Dark color */
+            transition: 0.5s;
+        }
+    
+        .footer .footer-item p {
+            line-height: 35px;
+        }
+    
+        .footer .footer-item a:hover {
+            letter-spacing: 1px;
+            color: var(--bs-primary);
+        }
+    
+        .footer .btn-primary {
+            background-color: #d89c03; /* Yellow color */
+            border-color: #d89c03;
+        }
+    
+        .footer .btn-primary:hover {
+            background-color: #b78102; /* Darker yellow */
+            border-color: #b78102;
+            color: white;
+        }
+    
+        .footer-item img {
+            width: 50px;
+            height: auto;
+        }
+    
+        .footer-item h3 {
+            margin-bottom: 0;
+        }
+    
+        @media (max-width: 767px) {
+            .footer-item h4 {
+                text-align: center;
+            }
+            .footer-item a {
+                text-align: center;
+            }
+            .footer-item p {
+                text-align: center;
+            }
+            .footer .container {
+                padding: 0 15px;
+            }
+        }
+         
          
 
       </style>
@@ -661,15 +675,13 @@
 </div>
 <!-- Pre-header End -->
 
-
 <!-- Header Area Start -->
 <header class="bg-white shadow-md sticky top-0 z-40">
     <div class="container mx-auto flex flex-wrap items-center justify-between h-20 px-4">
         <a href="index.html" class="flex-shrink-0">
             <img src="{% static 'assets/images/large.png' %}" alt="Honey Logo" width="100" height="100">
-
         </a>
-        <button class="navbar-toggler md:hidden flex items-center px-3 py-2 border rounded border-gray-600 text-gray-600 hover:text-gray-800 focus:outline-none">
+        <button id="menu-toggle" class="navbar-toggler md:hidden flex items-center px-3 py-2 border rounded border-gray-600 text-gray-600 hover:text-gray-800 focus:outline-none">
             <i class="fa fa-bars"></i>
         </button>
         <ul class="hidden md:flex flex-1 justify-center space-x-6 text-yellow-800 font-semibold uppercase items-center">
@@ -689,19 +701,19 @@
     </div>
     
     <!-- Mobile Menu -->
-<div class="md:hidden hidden" id="mobile-menu">
-    <ul class="flex flex-col space-y-2 bg-white text-yellow-800 font-semibold uppercase">
-        <li class="scroll-to-section"><a href="{% url 'landing_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
-        <li class="scroll-to-section"><a href="{% url 'honey_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
-        <li class="scroll-to-section"><a href="{% url 'pro_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
-        <li class="scroll-to-section"><a href="{% url 'coc_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Coconut Product</a></li>
-        <li class="scroll-to-section"><a href="{% url 'oil_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
-        <li class="scroll-to-section"><a href="{% url 'spices_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Spices</a></li>
-    </ul>
-</div>
-
+    <div class="md:hidden hidden" id="mobile-menu">
+        <ul class="flex flex-col space-y-2 bg-white text-yellow-800 font-semibold uppercase">
+            <li><a href="{% url 'landing_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Home</a></li>
+            <li><a href="{% url 'honey_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey</a></li>
+            <li><a href="{% url 'pro_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Honey Product</a></li>
+            <li><a href="{% url 'coc_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Coconut Product</a></li>
+            <li><a href="{% url 'oil_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Oil</a></li>
+            <li><a href="{% url 'spices_page' %}" class="block px-4 py-2 hover:bg-yellow-100">Spices</a></li>
+        </ul>
+    </div>
 </header>
 <!-- Header Area End -->
+
 
 <!-- Carousel Section -->
 <section class="relative overflow-hidden">
@@ -959,7 +971,7 @@
             <img src="{% static 'assets/images/blog1.jpg' %}" alt="blog" />
             <div class="blog-card-content">
                 <h2 class="title-font">Cities</h2>
-                <h1 class="title-font">This season,increased yield of honey</h1>
+                <h1 class="title-font">This season, increased yield of honey</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
                 <div class="blog-card-footer">
                     <span>Oct 30, 2022 · 9 min read</span>
@@ -971,11 +983,7 @@
                         3.5K
                     </span>
                 </div>
-                <!-- Learn More Button -->
                 <a href="#" class="learn-more-btn">Learn More</a>
-
-
-
             </div>
         </article>
 
@@ -995,9 +1003,7 @@
                         3.5K
                     </span>
                 </div>
-                <!-- Learn More Button -->
                 <a href="#" class="learn-more-btn">Learn More</a>
-
             </div>
         </article>
 
@@ -1017,9 +1023,7 @@
                         3.5K
                     </span>
                 </div>
-                <!-- Learn More Button -->
                 <a href="#" class="learn-more-btn">Learn More</a>
-
             </div>
         </article>
 
@@ -1027,7 +1031,7 @@
             <img src="{% static 'assets/images/blog4.jpg' %}" alt="blog" />
             <div class="blog-card-content">
                 <h2 class="title-font">Cities</h2>
-                <h1 class="title-font">How the honeybee makes honey in pour apiaries</h1>
+                <h1 class="title-font">How the honeybee makes honey in our apiaries</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, maxime. Accusamus qui incidunt est rem at corrupti, earum fugiat iure.</p>
                 <div class="blog-card-footer">
                     <span>Oct 30, 2022 · 9 min read</span>
@@ -1039,14 +1043,14 @@
                         3.5K
                     </span>
                 </div>
-                <!-- Learn More Button -->
                 <a href="#" class="learn-more-btn">Learn More</a>
-
             </div>
         </article>
 
     </div>
 </section>
+
+
 
 <!-- Start clients -->
 <section id="clients" class="section">
@@ -1271,14 +1275,14 @@
 <div class="container-fluid footer bg-light py-5 wow fadeIn" data-wow-delay="0.2s">
     <div class="container py-5">
         <div class="row g-5 mb-5 align-items-center">
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-md-12">
                 <div class="position-relative mx-auto">
                     <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Email address to Subscribe">
                     <button type="button" class="btn btn-primary position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
                 </div>
             </div>
-            <div class="col-lg-5">
-                <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+            <div class="col-lg-5 col-md-12">
+                <div class="d-flex align-items-center justify-content-center justify-content-lg-end mt-3 mt-lg-0">
                     <a class="btn btn-light btn-md-square me-3" href="">
                         <i class="fab fa-facebook-f" style="color: #d89c03;"></i>
                     </a>
@@ -1296,19 +1300,18 @@
         </div>
         <div class="row g-5">
             <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center mb-4">
+                <div class="footer-item text-center text-lg-start">
+                    <div class="d-flex align-items-center mb-4 justify-content-center justify-content-lg-start">
                         <img src="{% static 'assets/images/true.jpg' %}" alt="Electra Logo" class="me-3">
                         <h3 class="text-dark mb-0">
                             <i class="fas fa-bee" style="color: #d89c03; margin-right: 8px;"></i>
-                            
                         </h3>
                     </div>
                     <p class="mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est. Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
+                <div class="footer-item text-center text-lg-start">
                     <h4 class="text-dark mb-4">Quick Links</h4>
                     <a href="#">Home</a>
                     <a href="#">About us</a>
@@ -1318,19 +1321,19 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="text-dark mb-4">Honey services</h4>
-                    <a href="#">honey</a>
-                    <a href="#">honey</a>
-                    <a href="#">honey</a>
-                    <a href="#">honey</a>
-                    <a href="#">honey</a>
+                <div class="footer-item text-center text-lg-start">
+                    <h4 class="text-dark mb-4">Honey Services</h4>
+                    <a href="#">Honey</a>
+                    <a href="#">Honey</a>
+                    <a href="#">Honey</a>
+                    <a href="#">Honey</a>
+                    <a href="#">Honey</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
+                <div class="footer-item text-center text-lg-start">
                     <h4 class="text-dark mb-4">Contact Info</h4>
-                    <a href="#"><i class="fa fa-map-marker-alt" style="color: #d89c03; margin-right: 8px;"></i>123 Street, manjalumoodu</a>
+                    <a href="#"><i class="fa fa-map-marker-alt" style="color: #d89c03; margin-right: 8px;"></i>123 Street, Manjalumoodu</a>
                     <a href="mailto:info@example.com"><i class="fas fa-envelope" style="color: #d89c03; margin-right: 8px;"></i>info@example.com</a>
                     <a href="tel:+01234567890"><i class="fas fa-phone" style="color: #d89c03; margin-right: 8px;"></i>+012 345 67890</a>
                     <a href="tel:+01234567890" class="mb-3"><i class="fas fa-print" style="color: #d89c03; margin-right: 8px;"></i>+012 345 67890</a>
@@ -1439,8 +1442,13 @@ $(document).ready(function(){
     });
 </script>
 
-
-
+<script>
+// JavaScript for toggling the mobile menu
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    var mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('hidden');
+});
+</script>
 
 </body>
 
